@@ -5,7 +5,7 @@
     const url = 'https://helloworld-xxxxx-uc.a.run.app';
     const client = await auth.getIdTokenClient(url);
 
-* The documentation at cloud.google.com/docs/authentication/get-id-token should bee updated to include C# sample.
+* The documentation at cloud.google.com/docs/authentication/get-id-token should be updated to include C# sample.
 */
 
 using Google.Apis.Auth.OAuth2;
