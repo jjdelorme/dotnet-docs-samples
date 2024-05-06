@@ -9,7 +9,6 @@
 */
 
 using Google.Apis.Auth.OAuth2;
-using Google.Cloud.Iam.Credentials.V1;
 
 if (args.Length == 0)
 {
@@ -34,10 +33,10 @@ Console.WriteLine($"Reponse: {response}");
 /// </summary>
 async Task<HttpClient> GetIdTokenClientAsync(string url)
 {
-    string accessToken = await GetIdTokenFromApplicationDefaultAsync(url);
+    string idToken = await GetIdTokenFromApplicationDefaultAsync(url);
 
     var client = new HttpClient();
-    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
+    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {idToken}");
     
     return client;
 }
