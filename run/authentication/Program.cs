@@ -52,6 +52,7 @@ async Task<string> GetIdTokenFromApplicationDefaultAsync(string url)
 
     var token = await credential.GetOidcTokenAsync(OidcTokenOptions.FromTargetAudience(url));
 
+    // Despite the method being called AccessToken this is an IdToken
     var idToken = await token.GetAccessTokenAsync();
 
     return idToken;
