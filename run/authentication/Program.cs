@@ -51,28 +51,10 @@ async Task<string> GetIdTokenFromApplicationDefaultAsync(string url)
     var credential = await GoogleCredential.GetApplicationDefaultAsync()
         .ConfigureAwait(false);
 
-    // Get the underlying ServiceAccountCredential
-    var serviceAccount = credential.UnderlyingCredential as ServiceAccountCredential;
+    var token = await credential.GetOidcTokenAsync(OidcTokenOptions.FromTargetAudience(url));
 
-    if(serviceAccount == null)
-        throw new Exception("Could not get ServiceAccountCredential from ApplicationDefaultCredentials");
- 
-    var idToken = await GetIdTokenAsync(url, serviceAccount.Id);
+    var idToken = await token.GetAccessTokenAsync();
 
     return idToken;
 }
 
-/// <summary>
-/// Gets the ID Token scoped to a url with a service account ID (usually the email address).
-/// </summary>
-async Task<string> GetIdTokenAsync(string url, string serviceAccountId)
-{
-    // Create IAMCredentialsClient
-    var client = IAMCredentialsClient.Create();
-
-    // Generate ID token
-    var tokenResponse = await client.GenerateIdTokenAsync(serviceAccountId, null, url, true)
-            .ConfigureAwait(false);
-
-    return tokenResponse.Token;
-}
