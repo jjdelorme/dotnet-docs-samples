@@ -13,10 +13,9 @@ public class SampleGoogleCredential
         string idToken = await GetIdTokenFromApplicationDefaultAsync(audience, cancellationToken)
             .ConfigureAwait(false);
 
-
         var client = new HttpClient();
         client.DefaultRequestHeaders.Add("Authorization", $"Bearer {idToken}");
-        
+
         return client;
     }
 
